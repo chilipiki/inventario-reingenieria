@@ -1,0 +1,350 @@
+/* ============================================================================
+ESTILOS GLOBALES - SISTEMA DE INVENTARIO
+============================================================================ */
+
+* {
+    -fx-font-family: "Segoe UI", "Ubuntu", Arial, sans-serif;
+}
+
+/* ============================================================================
+   COLORES Y TEMAS GLOBALES
+   ============================================================================ */
+
+.root {
+    -fx-background-color: #f0f7f7;
+    -fx-font-size: 12px;
+
+    /* Paleta de colores oceánica */
+    -color-primary: #168AAD;
+    -color-primary-dark: #1A759F;
+    -color-primary-darker: #1E6091;
+    -color-primary-darkest: #184E77;
+    -color-secondary: #52B69A;
+    -color-accent: #34A0A4;
+    -color-primary-light: #d0eef5;
+    -color-danger: #E05263;
+    -color-success: #52B69A;
+    -color-warning: #F4A261;
+    -color-info: #168AAD;
+    -color-dark: #1a2e3b;
+    -color-light: #FAFAFA;
+    -color-border: #b2d8e3;
+    -color-shadow: #00000020;
+}
+
+/* ============================================================================
+   BOTONES
+   ============================================================================ */
+
+.button {
+    -fx-padding: 10px 20px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-border: none;
+}
+
+/* Botón Primario */
+.button-primary {
+    -fx-background-color: #168AAD;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1A759F;
+    -fx-effect: dropshadow(gaussian, rgba(22,138,173,0.4), 6, 0, 0, 2);
+}
+
+.button-primary:pressed {
+    -fx-background-color: #1E6091;
+}
+
+/* Botón Secundario */
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #168AAD;
+    -fx-border-color: #168AAD;
+    -fx-border-width: 2;
+    -fx-border-radius: 6px;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #d0eef5;
+}
+
+/* Botón Éxito */
+.button-success {
+    -fx-background-color: #52B69A;
+    -fx-text-fill: white;
+}
+
+.button-success:hover {
+    -fx-background-color: #3d9e84;
+    -fx-effect: dropshadow(gaussian, rgba(82,182,154,0.4), 6, 0, 0, 2);
+}
+
+/* Botón Peligro */
+.button-danger {
+    -fx-background-color: #E05263;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: #c0394a;
+    -fx-effect: dropshadow(gaussian, rgba(224,82,99,0.4), 6, 0, 0, 2);
+}
+
+/* ============================================================================
+   CAMPOS DE TEXTO
+   ============================================================================ */
+
+.text-field, .password-field, .text-area {
+    -fx-padding: 10px;
+    -fx-border-color: #b2d8e3;
+    -fx-border-width: 1;
+    -fx-border-radius: 6px;
+    -fx-background-color: white;
+    -fx-font-size: 12px;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-border-color: #168AAD;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(22,138,173,0.2), 6, 0, 0, 1);
+}
+
+/* ============================================================================
+   ETIQUETAS Y TÍTULOS
+   ============================================================================ */
+
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #184E77;
+}
+
+.label-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E6091;
+}
+
+.label-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5a8a9f;
+}
+
+/* ============================================================================
+   PANELES Y CONTENEDORES
+   ============================================================================ */
+
+.panel {
+    -fx-background-color: white;
+    -fx-border-color: #b2d8e3;
+    -fx-border-width: 1;
+    -fx-border-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(26,117,159,0.12), 8, 0, 0, 3);
+}
+
+.panel-header {
+    -fx-background-color: #168AAD;
+    -fx-padding: 15px;
+    -fx-text-fill: white;
+}
+
+.panel-body {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-border-color: #b2d8e3;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(26,117,159,0.12), 8, 0, 0, 3);
+}
+
+/* ============================================================================
+   TABLAS
+   ============================================================================ */
+
+.table-view {
+    -fx-border-color: #b2d8e3;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-border-radius: 8px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1A759F;
+    -fx-border-color: #168AAD;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.table-view .table-row-cell {
+    -fx-padding: 8px;
+    -fx-border-color: #e8f4f8;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #d0eef5;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #168AAD;
+    -fx-text-fill: white;
+}
+
+/* ============================================================================
+   MENÚ Y NAVEGACIÓN
+   ============================================================================ */
+
+.menu-bar {
+    -fx-background-color: #184E77;
+    -fx-padding: 0;
+}
+
+.menu, .menu-item {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+.menu-item:focused {
+    -fx-background-color: #1E6091;
+}
+
+.context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #b2d8e3;
+}
+
+/* ============================================================================
+   ALERTAS Y NOTIFICACIONES
+   ============================================================================ */
+
+.alert-info {
+    -fx-border-color: #168AAD;
+    -fx-border-width: 1;
+    -fx-padding: 12px;
+    -fx-background-color: #d0eef5;
+    -fx-border-radius: 6px;
+}
+
+.alert-success {
+    -fx-border-color: #52B69A;
+    -fx-border-width: 1;
+    -fx-padding: 12px;
+    -fx-background-color: #dcf5ed;
+    -fx-border-radius: 6px;
+}
+
+.alert-warning {
+    -fx-border-color: #F4A261;
+    -fx-border-width: 1;
+    -fx-padding: 12px;
+    -fx-background-color: #fef3e2;
+    -fx-border-radius: 6px;
+}
+
+.alert-danger {
+    -fx-border-color: #E05263;
+    -fx-border-width: 1;
+    -fx-padding: 12px;
+    -fx-background-color: #fce8eb;
+    -fx-border-radius: 6px;
+}
+
+/* ============================================================================
+   SCROLL BAR
+   ============================================================================ */
+
+.scroll-bar {
+    -fx-background-color: #f0f7f7;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #34A0A4;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #168AAD;
+}
+
+/* ============================================================================
+   COMBO BOX Y CHOICE BOX
+   ============================================================================ */
+
+.combo-box, .choice-box {
+    -fx-border-color: #b2d8e3;
+    -fx-border-width: 1;
+    -fx-border-radius: 6px;
+    -fx-padding: 8px;
+    -fx-background-color: white;
+}
+
+.combo-box:focused, .choice-box:focused {
+    -fx-border-color: #168AAD;
+    -fx-border-width: 2;
+}
+
+/* ============================================================================
+   SEPARADORES
+   ============================================================================ */
+
+.separator {
+    -fx-padding: 5px;
+}
+
+.separator:vertical {
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: #b2d8e3;
+}
+
+.separator:horizontal {
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #b2d8e3;
+}
+
+/* ============================================================================
+   PROGRESS BAR
+   ============================================================================ */
+
+.progress-bar {
+    -fx-control-inner-background: #d0eef5;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #168AAD;
+}
+
+/* ============================================================================
+   ANIMACIONES Y EFECTOS
+   ============================================================================ */
+
+.fade-in {
+    -fx-opacity: 1;
+}
+
+@import url('navigation.css');

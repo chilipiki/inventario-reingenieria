@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../styles/styles.css">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <!-- Nombre -->
+    <VBox spacing="5">
+        <Label text="Nombre del Producto:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <TextField fx:id="nombreField"
+                   promptText="Ej: Laptop Dell"
+                   prefHeight="35"/>
+    </VBox>
+
+    <!-- Descripción -->
+    <VBox spacing="5">
+        <Label text="Descripción:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <TextArea fx:id="descripcionArea"
+                  promptText="Descripción del producto..."
+                  prefHeight="100"
+                  wrapText="true"/>
+    </VBox>
+
+    <!-- Cantidad -->
+    <VBox spacing="5">
+        <Label text="Cantidad:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <Spinner fx:id="cantidadSpinner"
+                 prefHeight="35"/>
+    </VBox>
+
+    <!-- Precio -->
+    <VBox spacing="5">
+        <Label text="Precio:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <TextField fx:id="precioField"
+                   promptText="0.00"
+                   prefHeight="35"/>
+    </VBox>
+
+    <!-- Almacén -->
+    <VBox spacing="5">
+        <Label text="Almacén:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <ComboBox fx:id="almacenCombo"
+                  prefHeight="35"
+                  prefWidth="Infinity"/>
+    </VBox>
+
+    <!-- Spacer -->
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <!-- Botones -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="guardarBtn"
+                text="💾 Guardar"
+                styleClass="button-success"
+                onAction="#handleGuardar"
+                prefWidth="120"
+                prefHeight="35"/>
+
+        <Button fx:id="cancelarBtn"
+                text="❌ Cancelar"
+                styleClass="button-secondary"
+                onAction="#handleCancelar"
+                prefWidth="120"
+                prefHeight="35"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../styles/styles.css,@../styles/navigation.css">
+
+    <!-- Panel izquierdo con branding -->
+    <left>
+        <VBox styleClass="sidebar" style="-fx-padding: 50; -fx-alignment: center; -fx-spacing: 20;">
+
+            <Label text="Sistema de"
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Inventario"
+                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                <image>
+                    <Image url="@../img/escudo_unison.png"/>
+                </image>
+            </ImageView>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Region prefHeight="30"/>
+
+            <Label text="© 2026 UNISON - Gestión de Calidad del Software II"
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.6);"/>
+        </VBox>
+    </left>
+
+    <!-- Panel derecho con formulario -->
+    <center>
+        <VBox spacing="30"
+              alignment="CENTER"
+              style="-fx-padding: 50; -fx-background-color: #f5f5f5;"
+              VBox.vgrow="ALWAYS">
+
+            <!-- Header -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Iniciar Sesión"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+                <Label text="Ingrese sus credenciales para acceder al sistema"
+                       style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+            </VBox>
+
+            <!-- Formulario -->
+            <VBox spacing="15" prefWidth="350">
+
+                <!-- Campo Usuario -->
+                <VBox spacing="5">
+                    <Label text="Usuario:" style="-fx-font-size: 13px; -fx-text-fill: #424242; -fx-font-weight: bold;"/>
+                    <TextField fx:id="usernameField"
+                               promptText="Ingrese su nombre de usuario"
+                               prefHeight="40"/>
+                </VBox>
+
+                <!-- Campo Contraseña -->
+                <VBox spacing="5">
+                    <Label text="Contraseña:" style="-fx-font-size: 13px; -fx-text-fill: #424242; -fx-font-weight: bold;"/>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="Ingrese su contraseña"
+                                   prefHeight="40"/>
+                </VBox>
+
+                <!-- Mensaje de Error -->
+                <Label fx:id="errorLabel"
+                       text=""
+                       style="-fx-text-fill: #F44336; -fx-font-size: 12px; -fx-padding: 0;"
+                       wrapText="true"
+                       managed="false"
+                       visible="false"/>
+
+                <!-- Checkbox Recordar -->
+                <CheckBox fx:id="rememberCheckBox" text="Recordarme"
+                          style="-fx-font-size: 12px;"/>
+            </VBox>
+
+            <!-- Botones -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button fx:id="loginButton"
+                        text="Iniciar Sesión"
+                        onAction="#handleLogin"
+                        prefWidth="150"
+                        prefHeight="40"
+                        styleClass="button-primary"/>
+                <Button fx:id="exitButton"
+                        text="Salir"
+                        onAction="#handleExit"
+                        prefWidth="150"
+                        prefHeight="40"
+                        styleClass="button-secondary"/>
+            </HBox>
+
+            <!-- Footer -->
+            <VBox spacing="5" alignment="CENTER">
+                <Separator/>
+                <Label text="Usuario de prueba: ADMIN / Contraseña: admin23"
+                       style="-fx-font-size: 11px; -fx-text-fill: #999999;"/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

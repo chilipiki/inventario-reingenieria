@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../styles/styles.css">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <!-- Header -->
+    <VBox spacing="10">
+        <Label text="Gestión de Almacenes" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+        <Label text="Administra los almacenes del inventario"
+               wrapText="true"
+               style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+    </VBox>
+
+    <!-- Barra de búsqueda y botones -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="searchField"
+                   promptText="Buscar almacén..."
+                   prefHeight="35"
+                   HBox.hgrow="ALWAYS"/>
+
+        <Button fx:id="agregarBtn"
+                text="➕ Agregar"
+                styleClass="button-success"
+                onAction="#handleAgregar"
+                prefHeight="35"/>
+
+        <Button fx:id="editarBtn"
+                text="✏️ Editar"
+                styleClass="button-primary"
+                onAction="#handleEditar"
+                prefHeight="35"/>
+
+        <Button fx:id="eliminarBtn"
+                text="🗑️ Eliminar"
+                styleClass="button-danger"
+                onAction="#handleEliminar"
+                prefHeight="35"/>
+
+        <Button fx:id="actualizarBtn"
+                text="🔄 Actualizar"
+                styleClass="button-secondary"
+                onAction="#handleActualizar"
+                prefHeight="35"/>
+    </HBox>
+
+    <!-- Tabla de almacenes -->
+    <TableView fx:id="almacenesTable"
+               VBox.vgrow="ALWAYS"
+               style="-fx-font-size: 12px;">
+
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nombreColumn" text="Nombre" prefWidth="150"/>
+            <TableColumn fx:id="ubicacionColumn" text="Ubicación" prefWidth="200"/>
+            <TableColumn fx:id="fechaCreacionColumn" text="Fecha Creación" prefWidth="150"/>
+            <TableColumn fx:id="ultimoUsuarioColumn" text="Último Usuario" prefWidth="120"/>
+        </columns>
+    </TableView>
+</VBox>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../styles/styles.css,@../styles/navigation.css">
+
+    <!-- SIDEBAR IZQUIERDA -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="250">
+
+            <!-- Header del Sidebar -->
+            <VBox spacing="5" styleClass="sidebar-header">
+                <Label text="Sistema de" styleClass="sidebar-title"/>
+                <Label text="Inventario" styleClass="sidebar-title"/>
+                <Label text="v1.0" styleClass="sidebar-subtitle"/>
+            </VBox>
+
+            <Separator styleClass="sidebar-separator"/>
+
+            <!-- Botones de Navegación -->
+            <ScrollPane fitToWidth="true" style="-fx-border-width: 0; -fx-background: transparent; -fx-background-color: transparent;">
+                <VBox spacing="2" style="-fx-padding: 10px 0; -fx-background-color: transparent;">
+
+                    <!-- Dashboard (siempre visible) -->
+                    <Button fx:id="dashboardBtn"
+                            text="📊 Dashboard"
+                            styleClass="nav-button"
+                            onAction="#handleDashboard"
+                            prefHeight="50"
+                            wrapText="true"/>
+
+                    <!-- Productos (visible para ADMIN y PRODUCTOS) -->
+                    <Button fx:id="productosBtn"
+                            text="📦 Gestión de Productos"
+                            styleClass="nav-button"
+                            onAction="#handleProductos"
+                            prefHeight="50"
+                            wrapText="true"
+                            managed="false"
+                            visible="false"/>
+
+                    <!-- Almacenes (visible para ADMIN y ALMACENES) -->
+                    <Button fx:id="almacenesBtn"
+                            text="🏢 Gestión de Almacenes"
+                            styleClass="nav-button"
+                            onAction="#handleAlmacenes"
+                            prefHeight="50"
+                            wrapText="true"
+                            managed="false"
+                            visible="false"/>
+
+                    <!-- Configuración (solo ADMIN) -->
+                    <Button fx:id="configBtn"
+                            text="⚙️ Configuración"
+                            styleClass="nav-button"
+                            onAction="#handleConfig"
+                            prefHeight="50"
+                            wrapText="true"
+                            managed="false"
+                            visible="false"/>
+                </VBox>
+            </ScrollPane>
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Footer del Sidebar -->
+            <Separator styleClass="sidebar-separator"/>
+            <VBox spacing="8" styleClass="sidebar-footer">
+                <VBox spacing="3">
+                    <Label fx:id="userNameLabel" text="Usuario" styleClass="user-info"/>
+                    <Label fx:id="userRoleLabel" text="Rol" styleClass="user-role"/>
+                </VBox>
+                <Button text="🚪 Cerrar Sesión"
+                        styleClass="logout-button"
+                        onAction="#handleLogout"
+                        prefWidth="210"
+                        prefHeight="35"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <center>
+        <VBox>
+
+            <!-- TOPBAR -->
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="topbar">
+                <VBox spacing="2">
+                    <Label fx:id="pageTitle" text="Dashboard" styleClass="topbar-title"/>
+                    <Label fx:id="pageSubtitle" text="Bienvenido al sistema" styleClass="topbar-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- ÁREA DE CONTENIDO -->
+            <StackPane fx:id="contentStackPane" VBox.vgrow="ALWAYS" styleClass="content-area">
+
+                <!-- Dashboard View -->
+                <VBox fx:id="dashboardView" spacing="20" styleClass="content-pane">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                    <!-- Cards de estadísticas -->
+                    <HBox spacing="20">
+                        <!-- Card Productos -->
+                        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                            <Label text="📦 Productos Totales" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+                            <Label fx:id="productosCountLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2196F3;"/>
+                        </VBox>
+
+                        <!-- Card Almacenes -->
+                        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                            <Label text="🏢 Almacenes" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+                            <Label fx:id="almacenesCountLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;"/>
+                        </VBox>
+
+                        <!-- Card Stock Total -->
+                        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                            <Label text="📊 Stock Total" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+                            <Label fx:id="stockTotalLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #FF9800;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Información de bienvenida -->
+                    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);">
+                        <Label text="Bienvenido al Sistema de Inventario" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+                        <Label text="Este sistema permite gestionar productos y almacenes de manera eficiente."
+                               wrapText="true"
+                               style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                        <Label text="Usa el menú lateral para acceder a las diferentes funcionalidades del sistema."
+                               wrapText="true"
+                               style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Productos View -->
+                <VBox fx:id="productosView" spacing="15" styleClass="content-pane" managed="false" visible="false">
+                </VBox>
+
+                <!-- Almacenes View -->
+                <VBox fx:id="almacenesView" spacing="15" styleClass="content-pane" managed="false" visible="false">
+                </VBox>
+
+                <!-- Config View -->
+                <VBox fx:id="configView" spacing="15" styleClass="content-pane" managed="false" visible="false">
+                </VBox>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

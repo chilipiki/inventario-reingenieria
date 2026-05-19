@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../styles/styles.css">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <!-- Header -->
+    <VBox spacing="10">
+        <Label text="Configuración del Sistema" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+        <Label text="Administración de usuarios y configuración general"
+               wrapText="true"
+               style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+    </VBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+        <!-- Contenido en dos columnas -->
+        <HBox spacing="15" VBox.vgrow="ALWAYS" fillHeight="true" >
+
+            <!-- Columna izquierda: Gestión de usuarios -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="card">
+                <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+                <Label text="👥 Gestión de Usuarios"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+                <Label text="Administra los usuarios del sistema"
+                       style="-fx-font-size: 12px; -fx-text-fill: #666666;"/>
+
+                <!-- Barra de acciones -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="agregarUsuarioBtn"
+                            text="➕ Nuevo Usuario"
+                            styleClass="button-success"
+                            onAction="#handleAgregarUsuario"
+                            prefHeight="35"/>
+                    <Button fx:id="eliminarUsuarioBtn"
+                            text="🗑️ Eliminar"
+                            styleClass="button-danger"
+                            onAction="#handleEliminarUsuario"
+                            prefHeight="35"/>
+                    <Button fx:id="actualizarUsuariosBtn"
+                            text="🔄 Actualizar"
+                            styleClass="button-secondary"
+                            onAction="#handleActualizarUsuarios"
+                            prefHeight="35"/>
+                </HBox>
+
+                <!-- Tabla de usuarios -->
+                <TableView fx:id="usuariosTable" VBox.vgrow="ALWAYS" style="-fx-font-size: 12px;">
+                    <columns>
+                        <TableColumn fx:id="idUsuarioColumn" text="ID" prefWidth="40"/>
+                        <TableColumn fx:id="nombreUsuarioColumn" text="Nombre" prefWidth="130"/>
+                        <TableColumn fx:id="rolColumn" text="Rol" prefWidth="80"/>
+                        <TableColumn fx:id="ultimoInicioColumn" text="Último Inicio" prefWidth="140"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Columna derecha: Cambio de contraseña + Info del sistema -->
+            <VBox spacing="15" prefWidth="300" minWidth="280">
+
+                <!-- Cambio de contraseña -->
+                <VBox spacing="10" styleClass="card">
+                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+                    <Label text="🔑 Cambiar Contraseña"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+                    <Label text="Cambia la contraseña de tu cuenta"
+                           style="-fx-font-size: 12px; -fx-text-fill: #666666;"/>
+
+                    <Label text="Contraseña actual:" style="-fx-font-size: 13px;"/>
+                    <PasswordField fx:id="passwordActualField" promptText="Contraseña actual" prefHeight="35"/>
+
+                    <Label text="Nueva contraseña:" style="-fx-font-size: 13px;"/>
+                    <PasswordField fx:id="passwordNuevaField" promptText="Nueva contraseña" prefHeight="35"/>
+
+                    <Label text="Confirmar contraseña:" style="-fx-font-size: 13px;"/>
+                    <PasswordField fx:id="passwordConfirmarField" promptText="Confirmar contraseña" prefHeight="35"/>
+
+                    <Button fx:id="cambiarPasswordBtn"
+                            text="🔒 Cambiar Contraseña"
+                            styleClass="button-primary"
+                            onAction="#handleCambiarPassword"
+                            prefHeight="35"
+                            maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Información del sistema -->
+                <VBox spacing="10" styleClass="card" minWidth="260">
+                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+                    <Label text="ℹ️ Información del Sistema"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #212121;"/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Versión:" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #212121;" prefWidth="110"/>
+                        <Label text="1.0.0" style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Framework:" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #212121;" prefWidth="110"/>
+                        <Label text="JavaFX 21" style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Base de datos:" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #212121;" prefWidth="110"/>
+                        <Label text="SQLite + ORMLite" style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Usuario activo:" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #212121;" prefWidth="110"/>
+                        <Label fx:id="usuarioActivoLabel" style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <Button fx:id="limpiarDbBtn"
+                            text="🗄️ Limpiar Base de Datos"
+                            styleClass="button-danger"
+                            onAction="#handleLimpiarDb"
+                            prefHeight="35"
+                            maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </ScrollPane>
+</VBox>

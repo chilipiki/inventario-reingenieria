@@ -1,0 +1,154 @@
+/* ============================================================================
+   ESTILOS DE NAVEGACIÓN Y MENÚ SIDEBAR
+   ============================================================================ */
+
+.sidebar {
+    -fx-background-color: #184E77;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+.sidebar-header {
+    -fx-background-color: #1E6091;
+    -fx-padding: 20px;
+    -fx-alignment: CENTER;
+}
+
+.sidebar-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-subtitle {
+    -fx-text-fill: rgba(255,255,255,0.7);
+    -fx-font-size: 11px;
+}
+
+.sidebar-separator {
+    -fx-padding: 10px 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 13px;
+    -fx-padding: 15px 20px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(82,182,154,0.2);
+    -fx-text-fill: white;
+}
+
+.nav-button:pressed {
+    -fx-background-color: rgba(82,182,154,0.35);
+}
+
+.nav-button-active {
+    -fx-background-color: rgba(82,182,154,0.3);
+    -fx-border-width: 0 4 0 0;
+    -fx-border-color: #52B69A;
+    -fx-padding: 15px 16px;
+    -fx-text-fill: white;
+}
+
+.nav-icon {
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-font-size: 16px;
+}
+
+.sidebar-footer {
+    -fx-padding: 20px;
+    -fx-alignment: BOTTOM_CENTER;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: rgba(255,255,255,0.15);
+}
+
+.user-info {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.user-role {
+    -fx-text-fill: #52B69A;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+/* ============================================================================
+   ESTILOS DE TOPBAR (BARRA SUPERIOR)
+   ============================================================================ */
+
+.topbar {
+    -fx-background-color: white;
+    -fx-padding: 15px 20px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #b2d8e3;
+}
+
+.topbar-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #184E77;
+}
+
+.topbar-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5a8a9f;
+}
+
+.logout-button {
+    -fx-background-color: #E05263;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 12px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0394a;
+    -fx-effect: dropshadow(gaussian, rgba(224,82,99,0.4), 6, 0, 0, 2);
+}
+
+/* ============================================================================
+   ESTILOS DE CONTENIDO
+   ============================================================================ */
+
+.content-area {
+    -fx-background-color: #f0f7f7;
+    -fx-padding: 20px;
+}
+
+.content-pane {
+    -fx-background-color: transparent;
+}
+
+/* ============================================================================
+   ESTILOS DE TABS
+   ============================================================================ */
+
+.tab-pane {
+    -fx-open-tab-animation: GROW;
+    -fx-close-tab-animation: GROW;
+}
+
+.tab {
+    -fx-padding: 8px 20px;
+    -fx-font-size: 13px;
+}
+
+.tab:selected {
+    -fx-background-color: #168AAD;
+    -fx-text-fill: white;
+}
+
+.tab-header-area {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #b2d8e3;
+}

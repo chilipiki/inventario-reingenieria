@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../styles/styles.css">
+
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <!-- Nombre -->
+    <VBox spacing="5">
+        <Label text="Nombre del Almacén:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <TextField fx:id="nombreField"
+                   promptText="Ej: Almac��n Central"
+                   prefHeight="35"/>
+    </VBox>
+
+    <!-- Ubicación -->
+    <VBox spacing="5">
+        <Label text="Ubicación:" style="-fx-font-weight: bold; -fx-text-fill: #424242;"/>
+        <TextArea fx:id="ubicacionArea"
+                  promptText="Dirección completa del almacén..."
+                  prefHeight="150"
+                  wrapText="true"/>
+    </VBox>
+
+    <!-- Spacer -->
+    <Region VBox.vgrow="ALWAYS"/>
+
+    <!-- Botones -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="guardarBtn"
+                text="💾 Guardar"
+                styleClass="button-success"
+                onAction="#handleGuardar"
+                prefWidth="120"
+                prefHeight="35"/>
+
+        <Button fx:id="cancelarBtn"
+                text="❌ Cancelar"
+                styleClass="button-secondary"
+                onAction="#handleCancelar"
+                prefWidth="120"
+                prefHeight="35"/>
+    </HBox>
+</VBox>
