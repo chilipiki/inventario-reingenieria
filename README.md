@@ -182,8 +182,3 @@ La base de datos SQLite se genera automáticamente al iniciar la aplicación con
 - **usuarios** - Almacena los usuarios del sistema con su rol y contraseña encriptada
 - **almacenes** - Almacena los almacenes con su nombre, ubicación y auditoría
 - **productos** - Almacena los productos con su precio, cantidad y relación al almacén
-
-## Materia
-
-Gestión de la Calidad del Software II — Universidad de Sonora
-
