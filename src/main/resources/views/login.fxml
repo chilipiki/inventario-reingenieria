@@ -74,9 +74,6 @@
                        managed="false"
                        visible="false"/>
 
-                <!-- Checkbox Recordar -->
-                <CheckBox fx:id="rememberCheckBox" text="Recordarme"
-                          style="-fx-font-size: 12px;"/>
             </VBox>
 
             <!-- Botones -->

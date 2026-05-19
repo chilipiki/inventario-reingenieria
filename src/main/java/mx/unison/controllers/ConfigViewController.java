@@ -132,8 +132,8 @@ public class ConfigViewController {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Contraseña");
         ComboBox<String> rolCombo = new ComboBox<>();
-        rolCombo.getItems().addAll("ADMIN", "USUARIO");
-        rolCombo.setValue("USUARIO");
+        rolCombo.getItems().addAll("ADMIN", "PRODUCTOS", "ALMACENES");
+        rolCombo.setValue("PRODUCTOS");
 
         javafx.scene.layout.VBox content = new javafx.scene.layout.VBox(10);
         content.getChildren().addAll(

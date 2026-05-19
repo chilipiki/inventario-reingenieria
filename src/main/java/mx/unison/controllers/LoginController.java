@@ -3,7 +3,6 @@ package mx.unison.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,9 +28,6 @@ public class LoginController {
 
     /** Campo de texto encriptado para que el usuario introduzca su contraseña. */
     @FXML private PasswordField passwordField;
-
-    /** Casilla de verificación opcional para recordar las credenciales del usuario. */
-    @FXML private CheckBox rememberCheckBox;
 
     /** Botón para desencadenar el proceso de autenticación. */
     @FXML private Button loginButton;
@@ -67,9 +63,6 @@ public class LoginController {
         // Permitir login con Enter
         usernameField.setOnKeyPressed(this::handleKeyPress);
         passwordField.setOnKeyPressed(this::handleKeyPress);
-
-        // Cargar credenciales guardadas si existen
-        loadSavedCredentials();
 
         // Focus en el campo de usuario
         usernameField.requestFocus();
@@ -111,11 +104,6 @@ public class LoginController {
             if (usuario != null) {
                 // Login exitoso
                 hideError();
-
-                // Guardar credenciales si está marcado
-                if (rememberCheckBox.isSelected()) {
-                    saveCredentials(username, password);
-                }
 
                 // Mostrar alerta de bienvenida
                 UIUtils.showSuccessAlert(
@@ -179,23 +167,4 @@ public class LoginController {
         errorLabel.setManaged(false);
     }
 
-    /**
-     * Guarda las credenciales en las preferencias del sistema.
-     * Nota: En producción, estas deberían estar encriptadas.
-     *
-     * @param username Nombre de usuario
-     * @param password Contraseña
-     */
-    private void saveCredentials(String username, String password) {
-        // Aquí se podrían guardar en las preferencias del sistema
-        // Por ahora, solo guardamos en memoria durante la sesión
-        // TODO: Implementar almacenamiento seguro de credenciales
-    }
-
-    /**
-     * Carga las credenciales guardadas si existen.
-     */
-    private void loadSavedCredentials() {
-        // TODO: Implementar carga de credenciales guardadas de forma segura
-    }
 }
