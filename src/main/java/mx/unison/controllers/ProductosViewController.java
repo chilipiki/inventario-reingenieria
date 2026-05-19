@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.DatePicker;
 import mx.unison.database.DatabaseManager;
 import mx.unison.models.Almacen;
 import mx.unison.models.Producto;
@@ -25,9 +26,32 @@ import java.util.stream.Collectors;
  */
 public class ProductosViewController {
 
-    /** Campo de texto utilizado para filtrar los productos de la tabla en tiempo real. */
-    @FXML
-    private TextField searchField;
+    /** Filtro por nombre del producto. */
+    @FXML private TextField filtroNombre;
+
+    /** Filtro por descripción del producto. */
+    @FXML private TextField filtroDescripcion;
+
+    /** Filtro por nombre del almacén. */
+    @FXML private TextField filtroAlmacen;
+
+    /** Filtro de cantidad mínima. */
+    @FXML private TextField filtroCantidadMin;
+
+    /** Filtro de cantidad máxima. */
+    @FXML private TextField filtroCantidadMax;
+
+    /** Filtro de precio mínimo. */
+    @FXML private TextField filtroPrecioMin;
+
+    /** Filtro de precio máximo. */
+    @FXML private TextField filtroPrecioMax;
+
+    /** Filtro de fecha de creación desde. */
+    @FXML private DatePicker filtroFechaDesde;
+
+    /** Filtro de fecha de creación hasta. */
+    @FXML private DatePicker filtroFechaHasta;
 
     /** Tabla principal que muestra el inventario de productos. */
     @FXML
@@ -56,6 +80,18 @@ public class ProductosViewController {
     /** Columna de la tabla correspondiente al nombre del almacén donde está ubicado el producto. */
     @FXML
     private TableColumn<Producto, String> almacenColumn;
+
+    /** Columna de la tabla correspondiente a la fecha de creación del producto. */
+    @FXML
+    private TableColumn<Producto, String> fechaCreacionColumn;
+
+    /** Columna de la tabla correspondiente a la fecha de última modificación del producto. */
+    @FXML
+    private TableColumn<Producto, String> fechaModificacionColumn;
+
+    /** Columna de la tabla correspondiente al último usuario que modificó el producto. */
+    @FXML
+    private TableColumn<Producto, String> ultimoUsuarioColumn;
 
     /** Botón para abrir el formulario y registrar un nuevo producto. */
     @FXML
@@ -105,7 +141,7 @@ public class ProductosViewController {
      */
     @FXML
     public void initialize() {
-        // Configurar columnas de la tabla
+        // Configurar columnas existentes
         idColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         nombreColumn.setCellValueFactory(cellData ->
@@ -122,21 +158,35 @@ public class ProductosViewController {
             return new javafx.beans.property.SimpleStringProperty(almacenNombre);
         });
 
-        // Ancho de columnas
-        idColumn.setPrefWidth(50);
-        nombreColumn.setPrefWidth(150);
-        descripcionColumn.setPrefWidth(200);
-        cantidadColumn.setPrefWidth(80);
-        precioColumn.setPrefWidth(80);
-        almacenColumn.setPrefWidth(120);
+        // Configurar columnas nuevas
+        fechaCreacionColumn.setCellValueFactory(cellData -> {
+            String fecha = cellData.getValue().getFechaCreacion();
+            if (fecha == null || fecha.isEmpty()) return new javafx.beans.property.SimpleStringProperty("");
+            return new javafx.beans.property.SimpleStringProperty(fecha.substring(0, 16).replace("T", " "));
+        });
+        fechaModificacionColumn.setCellValueFactory(cellData -> {
+            String fecha = cellData.getValue().getFechaModificacion();
+            if (fecha == null || fecha.isEmpty()) return new javafx.beans.property.SimpleStringProperty("");
+            return new javafx.beans.property.SimpleStringProperty(fecha.substring(0, 16).replace("T", " "));
+        });
+        ultimoUsuarioColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUltimoUsuario()));
 
         // Cargar productos
         cargarProductos();
 
-        // Configurar búsqueda en tiempo real
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> filtrarProductos(newVal));
+        // Conectar filtros en tiempo real
+        filtroNombre.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroDescripcion.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroAlmacen.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroCantidadMin.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroCantidadMax.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroPrecioMin.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroPrecioMax.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroFechaDesde.valueProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroFechaHasta.valueProperty().addListener((obs, o, n) -> aplicarFiltros());
 
-        // Permitir doble click para editar
+        // Doble clic para editar
         productosTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && !productosTable.getSelectionModel().isEmpty()) {
                 handleEditar();
@@ -160,21 +210,59 @@ public class ProductosViewController {
     }
 
     /**
-     * Filtra los productos según el texto de búsqueda.
-     *
-     * @param searchText Texto de búsqueda
+     * Aplica todos los filtros activos sobre la lista de productos.
      */
-    private void filtrarProductos(String searchText) {
-        if (searchText == null || searchText.isEmpty()) {
-            productosTable.setItems(productosObservable);
-        } else {
-            String textoLower = searchText.toLowerCase();
-            ObservableList<Producto> productosFiltrados = productosObservable.stream()
-                    .filter(p -> p.getNombre().toLowerCase().contains(textoLower) ||
-                            p.getDescripcion().toLowerCase().contains(textoLower))
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-            productosTable.setItems(productosFiltrados);
-        }
+    private void aplicarFiltros() {
+        String nombre = filtroNombre.getText().toLowerCase();
+        String descripcion = filtroDescripcion.getText().toLowerCase();
+        String almacen = filtroAlmacen.getText().toLowerCase();
+
+        int cantMin = parsearEntero(filtroCantidadMin.getText(), 0);
+        int cantMax = parsearEntero(filtroCantidadMax.getText(), Integer.MAX_VALUE);
+        double precioMin = parsearDecimal(filtroPrecioMin.getText(), 0.0);
+        double precioMax = parsearDecimal(filtroPrecioMax.getText(), Double.MAX_VALUE);
+
+        java.time.LocalDate fechaDesde = filtroFechaDesde.getValue();
+        java.time.LocalDate fechaHasta = filtroFechaHasta.getValue();
+
+        ObservableList<Producto> filtrados = productosObservable.stream()
+                .filter(p -> p.getNombre().toLowerCase().contains(nombre))
+                .filter(p -> p.getDescripcion() == null || p.getDescripcion().toLowerCase().contains(descripcion))
+                .filter(p -> {
+                    String nomAlmacen = p.getAlmacen() != null ? p.getAlmacen().getNombre().toLowerCase() : "";
+                    return nomAlmacen.contains(almacen);
+                })
+                .filter(p -> p.getCantidad() >= cantMin && p.getCantidad() <= cantMax)
+                .filter(p -> p.getPrecio() >= precioMin && p.getPrecio() <= precioMax)
+                .filter(p -> {
+                    if (fechaDesde == null || p.getFechaCreacion() == null || p.getFechaCreacion().isEmpty()) return true;
+                    java.time.LocalDate fechaProd = java.time.LocalDate.parse(p.getFechaCreacion().substring(0, 10));
+                    return !fechaProd.isBefore(fechaDesde);
+                })
+                .filter(p -> {
+                    if (fechaHasta == null || p.getFechaCreacion() == null || p.getFechaCreacion().isEmpty()) return true;
+                    java.time.LocalDate fechaProd = java.time.LocalDate.parse(p.getFechaCreacion().substring(0, 10));
+                    return !fechaProd.isAfter(fechaHasta);
+                })
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        productosTable.setItems(filtrados);
+    }
+
+    /**
+     * Parsea un String a entero, retornando un valor por defecto si falla.
+     */
+    private int parsearEntero(String texto, int valorDefault) {
+        try { return Integer.parseInt(texto.trim()); }
+        catch (NumberFormatException e) { return valorDefault; }
+    }
+
+    /**
+     * Parsea un String a double, retornando un valor por defecto si falla.
+     */
+    private double parsearDecimal(String texto, double valorDefault) {
+        try { return Double.parseDouble(texto.trim()); }
+        catch (NumberFormatException e) { return valorDefault; }
     }
 
     /**
@@ -270,6 +358,23 @@ public class ProductosViewController {
         stage.setWidth(500);
         stage.setHeight(600);
         stage.showAndWait();
+    }
+
+    /**
+     * Limpia todos los filtros y muestra todos los productos.
+     */
+    @FXML
+    private void handleLimpiarFiltros() {
+        filtroNombre.clear();
+        filtroDescripcion.clear();
+        filtroAlmacen.clear();
+        filtroCantidadMin.clear();
+        filtroCantidadMax.clear();
+        filtroPrecioMin.clear();
+        filtroPrecioMax.clear();
+        filtroFechaDesde.setValue(null);
+        filtroFechaHasta.setValue(null);
+        productosTable.setItems(productosObservable);
     }
 
     /**

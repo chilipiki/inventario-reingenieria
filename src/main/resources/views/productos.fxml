@@ -18,36 +18,68 @@
                style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
     </VBox>
 
-    <!-- Barra de búsqueda y botones -->
+    <!-- Panel de filtros -->
+    <VBox spacing="8" style="-fx-background-color: #fff8e1; -fx-padding: 10; -fx-background-radius: 6;">
+        <Label text="🔍 Filtros de búsqueda" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Nombre:"/>
+                <TextField fx:id="filtroNombre" promptText="Buscar por nombre..." prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Descripción:"/>
+                <TextField fx:id="filtroDescripcion" promptText="Buscar por descripción..." prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Almacén:"/>
+                <TextField fx:id="filtroAlmacen" promptText="Buscar por almacén..." prefHeight="32"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="3">
+                <Label text="Cantidad mín:"/>
+                <TextField fx:id="filtroCantidadMin" promptText="0" prefWidth="100" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3">
+                <Label text="Cantidad máx:"/>
+                <TextField fx:id="filtroCantidadMax" promptText="9999" prefWidth="100" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3">
+                <Label text="Precio mín:"/>
+                <TextField fx:id="filtroPrecioMin" promptText="0.00" prefWidth="100" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3">
+                <Label text="Precio máx:"/>
+                <TextField fx:id="filtroPrecioMax" promptText="9999.99" prefWidth="100" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Fecha creación (desde):"/>
+                <DatePicker fx:id="filtroFechaDesde" prefWidth="150" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Fecha creación (hasta):"/>
+                <DatePicker fx:id="filtroFechaHasta" prefWidth="150" prefHeight="32"/>
+            </VBox>
+            <VBox spacing="3" alignment="BOTTOM_LEFT">
+                <Label text=" "/>
+                <Button text="🧹 Limpiar" onAction="#handleLimpiarFiltros"
+                        styleClass="button-secondary" prefHeight="32"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Botones de acción -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField fx:id="searchField"
-                   promptText="Buscar producto..."
-                   prefHeight="35"
-                   HBox.hgrow="ALWAYS"/>
-
-        <Button fx:id="agregarBtn"
-                text="➕ Agregar"
-                styleClass="button-success"
-                onAction="#handleAgregar"
-                prefHeight="35"/>
-
-        <Button fx:id="editarBtn"
-                text="✏️ Editar"
-                styleClass="button-primary"
-                onAction="#handleEditar"
-                prefHeight="35"/>
-
-        <Button fx:id="eliminarBtn"
-                text="🗑️ Eliminar"
-                styleClass="button-danger"
-                onAction="#handleEliminar"
-                prefHeight="35"/>
-
-        <Button fx:id="actualizarBtn"
-                text="🔄 Actualizar"
-                styleClass="button-secondary"
-                onAction="#handleActualizar"
-                prefHeight="35"/>
+        <Button fx:id="agregarBtn" text="➕ Agregar" styleClass="button-success"
+                onAction="#handleAgregar" prefHeight="35"/>
+        <Button fx:id="editarBtn" text="✏️ Editar" styleClass="button-primary"
+                onAction="#handleEditar" prefHeight="35"/>
+        <Button fx:id="eliminarBtn" text="🗑️ Eliminar" styleClass="button-danger"
+                onAction="#handleEliminar" prefHeight="35"/>
+        <Button fx:id="actualizarBtn" text="🔄 Actualizar" styleClass="button-secondary"
+                onAction="#handleActualizar" prefHeight="35"/>
     </HBox>
 
     <!-- Tabla de productos -->
@@ -58,10 +90,13 @@
         <columns>
             <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
             <TableColumn fx:id="nombreColumn" text="Nombre" prefWidth="150"/>
-            <TableColumn fx:id="descripcionColumn" text="Descripción" prefWidth="200"/>
+            <TableColumn fx:id="descripcionColumn" text="Descripción" prefWidth="180"/>
             <TableColumn fx:id="cantidadColumn" text="Cantidad" prefWidth="80"/>
             <TableColumn fx:id="precioColumn" text="Precio" prefWidth="80"/>
             <TableColumn fx:id="almacenColumn" text="Almacén" prefWidth="120"/>
+            <TableColumn fx:id="fechaCreacionColumn" text="Fecha Creación" prefWidth="145"/>
+            <TableColumn fx:id="fechaModificacionColumn" text="Última Modificación" prefWidth="145"/>
+            <TableColumn fx:id="ultimoUsuarioColumn" text="Último Usuario" prefWidth="120"/>
         </columns>
     </TableView>
 </VBox>

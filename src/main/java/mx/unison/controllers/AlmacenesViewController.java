@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.DatePicker;
 import mx.unison.database.DatabaseManager;
 import mx.unison.models.Almacen;
 import mx.unison.util.UIUtils;
@@ -23,8 +24,20 @@ import java.util.stream.Collectors;
  * de almacenes en el sistema.
  */
 public class AlmacenesViewController {
-    /** Campo de texto para búsqueda de almacenes. */
-    @FXML private TextField searchField;
+    /** Filtro por nombre del almacén. */
+    @FXML private TextField filtroNombre;
+
+    /** Filtro por ubicación del almacén. */
+    @FXML private TextField filtroUbicacion;
+
+    /** Filtro por último usuario que modificó. */
+    @FXML private TextField filtroUsuario;
+
+    /** Filtro de fecha de creación desde. */
+    @FXML private DatePicker filtroFechaDesde;
+
+    /** Filtro de fecha de creación hasta. */
+    @FXML private DatePicker filtroFechaHasta;
 
     /** Tabla para mostrar los almacenes registrados. */
     @FXML private TableView<Almacen> almacenesTable;
@@ -40,6 +53,9 @@ public class AlmacenesViewController {
 
     /** Columna para mostrar la fecha de creación del almacén. */
     @FXML private TableColumn<Almacen, String> fechaCreacionColumn;
+
+    /** Columna para mostrar la fecha de última modificación del almacén. */
+    @FXML private TableColumn<Almacen, String> fechaModificacionColumn;
 
     /** Columna para mostrar el último usuario que modificó el almacén. */
     @FXML private TableColumn<Almacen, String> ultimoUsuarioColumn;
@@ -80,13 +96,9 @@ public class AlmacenesViewController {
         this.usuarioActual = usuarioActual;
     }
 
-    /**
-     * Método invocado automáticamente por JavaFX después de cargar el archivo FXML.
-     * Configura la tabla, los listeners y carga los datos iniciales.
-     */
     @FXML
     public void initialize() {
-        // Configurar columnas de la tabla
+        // Configurar columnas existentes
         idColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         nombreColumn.setCellValueFactory(cellData ->
@@ -98,23 +110,27 @@ public class AlmacenesViewController {
             if (fecha == null || fecha.isEmpty()) return new javafx.beans.property.SimpleStringProperty("");
             return new javafx.beans.property.SimpleStringProperty(fecha.substring(0, 16).replace("T", " "));
         });
+
+        // Columnas nuevas
+        fechaModificacionColumn.setCellValueFactory(cellData -> {
+            String fecha = cellData.getValue().getFechaHoraUltimaMod();
+            if (fecha == null || fecha.isEmpty()) return new javafx.beans.property.SimpleStringProperty("");
+            return new javafx.beans.property.SimpleStringProperty(fecha.substring(0, 16).replace("T", " "));
+        });
         ultimoUsuarioColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getUltimoUsuario()));
-
-        // Ancho de columnas
-        idColumn.setPrefWidth(50);
-        nombreColumn.setPrefWidth(150);
-        ubicacionColumn.setPrefWidth(200);
-        fechaCreacionColumn.setPrefWidth(150);
-        ultimoUsuarioColumn.setPrefWidth(120);
 
         // Cargar almacenes
         cargarAlmacenes();
 
-        // Configurar búsqueda en tiempo real
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> filtrarAlmacenes(newVal));
+        // Conectar filtros en tiempo real
+        filtroNombre.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroUbicacion.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroUsuario.textProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroFechaDesde.valueProperty().addListener((obs, o, n) -> aplicarFiltros());
+        filtroFechaHasta.valueProperty().addListener((obs, o, n) -> aplicarFiltros());
 
-        // Permitir doble click para editar
+        // Doble clic para editar
         almacenesTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && !almacenesTable.getSelectionModel().isEmpty()) {
                 handleEditar();
@@ -138,21 +154,33 @@ public class AlmacenesViewController {
     }
 
     /**
-     * Filtra los almacenes según el texto de búsqueda.
-     *
-     * @param searchText Texto de búsqueda
+     * Aplica todos los filtros activos sobre la lista de almacenes.
      */
-    private void filtrarAlmacenes(String searchText) {
-        if (searchText == null || searchText.isEmpty()) {
-            almacenesTable.setItems(almacenesObservable);
-        } else {
-            String textoLower = searchText.toLowerCase();
-            ObservableList<Almacen> almacenesFiltrados = almacenesObservable.stream()
-                    .filter(a -> a.getNombre().toLowerCase().contains(textoLower) ||
-                            a.getUbicacion().toLowerCase().contains(textoLower))
-                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
-            almacenesTable.setItems(almacenesFiltrados);
-        }
+    private void aplicarFiltros() {
+        String nombre = filtroNombre.getText().toLowerCase();
+        String ubicacion = filtroUbicacion.getText().toLowerCase();
+        String usuario = filtroUsuario.getText().toLowerCase();
+
+        java.time.LocalDate fechaDesde = filtroFechaDesde.getValue();
+        java.time.LocalDate fechaHasta = filtroFechaHasta.getValue();
+
+        ObservableList<Almacen> filtrados = almacenesObservable.stream()
+                .filter(a -> a.getNombre().toLowerCase().contains(nombre))
+                .filter(a -> a.getUbicacion() == null || a.getUbicacion().toLowerCase().contains(ubicacion))
+                .filter(a -> a.getUltimoUsuario() == null || a.getUltimoUsuario().toLowerCase().contains(usuario))
+                .filter(a -> {
+                    if (fechaDesde == null || a.getFechaHoraCreacion() == null || a.getFechaHoraCreacion().isEmpty()) return true;
+                    java.time.LocalDate fechaAlm = java.time.LocalDate.parse(a.getFechaHoraCreacion().substring(0, 10));
+                    return !fechaAlm.isBefore(fechaDesde);
+                })
+                .filter(a -> {
+                    if (fechaHasta == null || a.getFechaHoraCreacion() == null || a.getFechaHoraCreacion().isEmpty()) return true;
+                    java.time.LocalDate fechaAlm = java.time.LocalDate.parse(a.getFechaHoraCreacion().substring(0, 10));
+                    return !fechaAlm.isAfter(fechaHasta);
+                })
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        almacenesTable.setItems(filtrados);
     }
 
     /**
@@ -248,6 +276,19 @@ public class AlmacenesViewController {
         stage.setWidth(500);
         stage.setHeight(400);
         stage.showAndWait();
+    }
+
+    /**
+     * Limpia todos los filtros y muestra todos los almacenes.
+     */
+    @FXML
+    private void handleLimpiarFiltros() {
+        filtroNombre.clear();
+        filtroUbicacion.clear();
+        filtroUsuario.clear();
+        filtroFechaDesde.setValue(null);
+        filtroFechaHasta.setValue(null);
+        almacenesTable.setItems(almacenesObservable);
     }
 
     /**
