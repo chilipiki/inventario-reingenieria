@@ -110,7 +110,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 }
 
 .text-field:focused, .password-field:focused, .text-area:focused {
-    -fx-border-color: #168AAD;
+    -fx-border-color: #00529e;
     -fx-border-width: 2;
     -fx-effect: dropshadow(gaussian, rgba(22,138,173,0.2), 6, 0, 0, 1);
 }
@@ -150,7 +150,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 }
 
 .panel-header {
-    -fx-background-color: #168AAD;
+    -fx-background-color: #00529e;
     -fx-padding: 15px;
     -fx-text-fill: white;
 }
@@ -182,7 +182,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 
 .table-view .column-header {
     -fx-background-color: #1A759F;
-    -fx-border-color: #168AAD;
+    -fx-border-color: #00529e;
     -fx-padding: 10px;
 }
 
@@ -203,7 +203,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 }
 
 .table-view .table-row-cell:selected {
-    -fx-background-color: #168AAD;
+    -fx-background-color: #00529e;
     -fx-text-fill: white;
 }
 
@@ -235,7 +235,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
    ============================================================================ */
 
 .alert-info {
-    -fx-border-color: #168AAD;
+    -fx-border-color: #00529e;
     -fx-border-width: 1;
     -fx-padding: 12px;
     -fx-background-color: #d0eef5;
@@ -289,7 +289,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 
 .scroll-bar:vertical .thumb:hover,
 .scroll-bar:horizontal .thumb:hover {
-    -fx-background-color: #168AAD;
+    -fx-background-color: #00529e;
 }
 
 /* ============================================================================
@@ -305,7 +305,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 }
 
 .combo-box:focused, .choice-box:focused {
-    -fx-border-color: #168AAD;
+    -fx-border-color: #00529e;
     -fx-border-width: 2;
 }
 
@@ -336,7 +336,7 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 }
 
 .progress-bar .bar {
-    -fx-background-color: #168AAD;
+    -fx-background-color: #00529e;
 }
 
 /* ============================================================================

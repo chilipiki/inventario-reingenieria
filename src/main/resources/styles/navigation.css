@@ -3,13 +3,13 @@
    ============================================================================ */
 
 .sidebar {
-    -fx-background-color: #184E77;
+    -fx-background-color: #015294;
     -fx-padding: 0;
     -fx-spacing: 0;
 }
 
 .sidebar-header {
-    -fx-background-color: #1E6091;
+    -fx-background-color: #00529e;
     -fx-padding: 20px;
     -fx-alignment: CENTER;
 }
@@ -51,7 +51,7 @@
 .nav-button-active {
     -fx-background-color: rgba(82,182,154,0.3);
     -fx-border-width: 0 4 0 0;
-    -fx-border-color: #52B69A;
+    -fx-border-color: #f8bb00;
     -fx-padding: 15px 16px;
     -fx-text-fill: white;
 }
@@ -74,7 +74,7 @@
 }
 
 .user-role {
-    -fx-text-fill: #52B69A;
+    -fx-text-fill: #f8bb00;
     -fx-font-size: 10px;
     -fx-font-weight: bold;
 }
@@ -136,7 +136,7 @@
 .topbar-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #184E77;
+    -fx-text-fill: #015294;
 }
 
 .topbar-subtitle {
