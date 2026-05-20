@@ -136,6 +136,7 @@ public class AlmacenesViewController {
                 handleEditar();
             }
         });
+        almacenesTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     /**

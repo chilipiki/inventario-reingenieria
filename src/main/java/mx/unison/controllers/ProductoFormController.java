@@ -143,8 +143,13 @@ public class ProductoFormController {
         cantidadSpinner.getValueFactory().setValue(productoActual.getCantidad());
         precioField.setText(String.valueOf(productoActual.getPrecio()));
 
+        // Buscar el almacén por ID dentro de los items del ComboBox
         if (productoActual.getAlmacen() != null) {
-            almacenCombo.setValue(productoActual.getAlmacen());
+            int almacenId = productoActual.getAlmacen().getId();
+            almacenCombo.getItems().stream()
+                    .filter(a -> a.getId() == almacenId)
+                    .findFirst()
+                    .ifPresent(almacenCombo::setValue);
         }
     }
 

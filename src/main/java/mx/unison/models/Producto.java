@@ -45,7 +45,7 @@ public class Producto {
     /**
      * Almacén al que pertenece el producto
      */
-    @DatabaseField(foreign = true, foreignAutoCreate = true)
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Almacen almacen;
 
     /**

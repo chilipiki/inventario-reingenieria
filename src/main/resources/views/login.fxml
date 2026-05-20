@@ -8,31 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="@../styles/styles.css,@../styles/navigation.css">
 
-    <!-- Panel izquierdo con branding -->
-    <left>
-        <VBox styleClass="sidebar" style="-fx-padding: 50; -fx-alignment: center; -fx-spacing: 20;">
-
-            <Label text="Sistema de"
-                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-            <Label text="Inventario"
-                   style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-
-            <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
-                <image>
-                    <Image url="@../img/escudo_unison.png"/>
-                </image>
-            </ImageView>
-
-            <Region VBox.vgrow="ALWAYS"/>
-
-            <Region prefHeight="30"/>
-
-            <Label text="© 2026 UNISON - Gestión de Calidad del Software II"
-                   style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.6);"/>
-        </VBox>
-    </left>
-
-    <!-- Panel derecho con formulario -->
+    <!-- Panel con formulario -->
     <center>
         <VBox spacing="30"
               alignment="CENTER"

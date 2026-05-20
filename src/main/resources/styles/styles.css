@@ -11,24 +11,24 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
    ============================================================================ */
 
 .root {
-    -fx-background-color: #f0f7f7;
+    -fx-background-color: #f5f8fc;
     -fx-font-size: 12px;
 
-    /* Paleta de colores oceánica */
-    -color-primary: #168AAD;
-    -color-primary-dark: #1A759F;
-    -color-primary-darker: #1E6091;
-    -color-primary-darkest: #184E77;
-    -color-secondary: #52B69A;
-    -color-accent: #34A0A4;
-    -color-primary-light: #d0eef5;
+    /* Paleta UniSon */
+    -color-primary: #00529e;
+    -color-primary-dark: #015294;
+    -color-primary-darker: #013f78;
+    -color-primary-darkest: #012060;
+    -color-secondary: #f8bb00;
+    -color-accent: #d99e30;
+    -color-primary-light: #cce0f5;
     -color-danger: #E05263;
     -color-success: #52B69A;
-    -color-warning: #F4A261;
-    -color-info: #168AAD;
-    -color-dark: #1a2e3b;
+    -color-warning: #f8bb00;
+    -color-info: #00529e;
+    -color-dark: #012060;
     -color-light: #FAFAFA;
-    -color-border: #b2d8e3;
+    -color-border: #b3cde0;
     -color-shadow: #00000020;
 }
 
@@ -48,30 +48,30 @@ ESTILOS GLOBALES - SISTEMA DE INVENTARIO
 
 /* Botón Primario */
 .button-primary {
-    -fx-background-color: #168AAD;
+    -fx-background-color: #00529e;
     -fx-text-fill: white;
 }
 
 .button-primary:hover {
-    -fx-background-color: #1A759F;
-    -fx-effect: dropshadow(gaussian, rgba(22,138,173,0.4), 6, 0, 0, 2);
+    -fx-background-color: #015294;
+    -fx-effect: dropshadow(gaussian, rgba(0,82,158,0.4), 6, 0, 0, 2);
 }
 
 .button-primary:pressed {
-    -fx-background-color: #1E6091;
+    -fx-background-color: #013f78;
 }
 
 /* Botón Secundario */
 .button-secondary {
     -fx-background-color: transparent;
-    -fx-text-fill: #168AAD;
-    -fx-border-color: #168AAD;
+    -fx-text-fill: #00529e;
+    -fx-border-color: #00529e;
     -fx-border-width: 2;
     -fx-border-radius: 6px;
 }
 
 .button-secondary:hover {
-    -fx-background-color: #d0eef5;
+    -fx-background-color: #cce0f5;
 }
 
 /* Botón Éxito */

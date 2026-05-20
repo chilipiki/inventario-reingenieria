@@ -80,6 +80,49 @@
 }
 
 /* ============================================================================
+   NAVBAR HORIZONTAL (TABS)
+   ============================================================================ */
+
+.nav-tab-button {
+    -fx-background-color: white;
+    -fx-text-fill: #00529e;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: #00529e;
+    -fx-border-width: 2;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.nav-tab-button:hover {
+    -fx-background-color: #cce0f5;
+    -fx-border-color: #015294;
+    -fx-text-fill: #015294;
+}
+
+.nav-tab-button:pressed {
+    -fx-background-color: #b3cde0;
+}
+
+.nav-tab-active {
+    -fx-background-color: #00529e;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: #00529e;
+    -fx-border-width: 2;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.nav-tab-active:hover {
+    -fx-background-color: #015294;
+    -fx-border-color: #015294;
+}
+
+/* ============================================================================
    ESTILOS DE TOPBAR (BARRA SUPERIOR)
    ============================================================================ */
 

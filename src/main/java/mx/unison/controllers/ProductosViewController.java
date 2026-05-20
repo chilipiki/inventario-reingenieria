@@ -192,6 +192,8 @@ public class ProductosViewController {
                 handleEditar();
             }
         });
+
+        productosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     /**
