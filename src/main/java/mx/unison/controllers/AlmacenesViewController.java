@@ -81,6 +81,9 @@ public class AlmacenesViewController {
     /** Nombre del usuario actualmente autenticado. */
     private String usuarioActual;
 
+    /** Rol del usuario actual. */
+    private String userRole;
+
     /** Lista observable de almacenes para actualizar la tabla en tiempo real. */
     private ObservableList<Almacen> almacenesObservable;
 
@@ -89,11 +92,14 @@ public class AlmacenesViewController {
      * @param mainController Controlador de navegación principal.
      * @param dbManager Gestor de conexión a la base de datos.
      * @param usuarioActual Usuario que ha iniciado sesión.
+     * @param userRole Rol del usuario actual.
      */
-    public AlmacenesViewController(MainController mainController, DatabaseManager dbManager, String usuarioActual) {
+    public AlmacenesViewController(MainController mainController,
+                                   DatabaseManager dbManager, String usuarioActual, String userRole) {
         this.mainController = mainController;
         this.dbManager = dbManager;
         this.usuarioActual = usuarioActual;
+        this.userRole = userRole;
     }
 
     @FXML
@@ -137,6 +143,11 @@ public class AlmacenesViewController {
             }
         });
         almacenesTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        boolean puedeEditar = userRole.equals("ADMIN") || userRole.equals("ALMACENES");
+        agregarBtn.setVisible(puedeEditar);   agregarBtn.setManaged(puedeEditar);
+        editarBtn.setVisible(puedeEditar);    editarBtn.setManaged(puedeEditar);
+        eliminarBtn.setVisible(puedeEditar);  eliminarBtn.setManaged(puedeEditar);
     }
 
     /**

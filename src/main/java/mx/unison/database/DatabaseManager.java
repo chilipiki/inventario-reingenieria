@@ -87,8 +87,8 @@ public class DatabaseManager {
      */
     private void createDefaultUsers() throws SQLException {
         createUserIfNotExists("ADMIN", "admin23", "ADMIN");
-        createUserIfNotExists("PRODUCTOS", "productos19", "PRODUCTOS");
-        createUserIfNotExists("ALMACENES", "almacenes11", "ALMACENES");
+        createUserIfNotExists("PRODUCTOS", "productos45", "PRODUCTOS");
+        createUserIfNotExists("ALMACENES", "almacenes67", "ALMACENES");
     }
 
     /**

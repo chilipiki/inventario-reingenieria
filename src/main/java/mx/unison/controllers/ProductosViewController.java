@@ -118,6 +118,9 @@ public class ProductosViewController {
     /** Nombre del usuario activo actual. */
     private String usuarioActual;
 
+    /** Rol del usuario actual. */
+    private String userRole;
+
     /** Lista observable enlazada a la tabla para actualización automática de la vista. */
     private ObservableList<Producto> productosObservable;
 
@@ -127,11 +130,14 @@ public class ProductosViewController {
      * @param mainController Controlador principal de la aplicación.
      * @param dbManager Gestor de conexión a la base de datos.
      * @param usuarioActual Nombre del usuario que ha iniciado sesión.
+     * @param userRole Rol del usuario actual.
      */
-    public ProductosViewController(MainController mainController, DatabaseManager dbManager, String usuarioActual) {
+    public ProductosViewController(MainController mainController,
+                                   DatabaseManager dbManager, String usuarioActual, String userRole) {
         this.mainController = mainController;
         this.dbManager = dbManager;
         this.usuarioActual = usuarioActual;
+        this.userRole = userRole;
     }
 
     /**
@@ -194,6 +200,10 @@ public class ProductosViewController {
         });
 
         productosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        boolean puedeEditar = userRole.equals("ADMIN") || userRole.equals("PRODUCTOS");
+        agregarBtn.setVisible(puedeEditar);   agregarBtn.setManaged(puedeEditar);
+        editarBtn.setVisible(puedeEditar);    editarBtn.setManaged(puedeEditar);
+        eliminarBtn.setVisible(puedeEditar);  eliminarBtn.setManaged(puedeEditar);
     }
 
     /**

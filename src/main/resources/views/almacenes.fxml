@@ -19,7 +19,7 @@
     </VBox>
 
     <!-- Panel de filtros -->
-    <VBox spacing="8" style="-fx-background-color: #fff8e1; -fx-padding: 10; -fx-background-radius: 6;">
+    <VBox spacing="8" style="-fx-background-color: #ddeaf7; -fx-padding: 10; -fx-background-radius: 6;">
         <Label text="🔍 Filtros de búsqueda" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
@@ -51,18 +51,6 @@
         </HBox>
     </VBox>
 
-    <!-- Botones de acción -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Button fx:id="agregarBtn" text="➕ Agregar" styleClass="button-success"
-                onAction="#handleAgregar" prefHeight="35"/>
-        <Button fx:id="editarBtn" text="✏️ Editar" styleClass="button-primary"
-                onAction="#handleEditar" prefHeight="35"/>
-        <Button fx:id="eliminarBtn" text="🗑️ Eliminar" styleClass="button-danger"
-                onAction="#handleEliminar" prefHeight="35"/>
-        <Button fx:id="actualizarBtn" text="🔄 Actualizar" styleClass="button-secondary"
-                onAction="#handleActualizar" prefHeight="35"/>
-    </HBox>
-
     <!-- Tabla de almacenes -->
     <TableView fx:id="almacenesTable"
                VBox.vgrow="ALWAYS"
@@ -77,4 +65,16 @@
             <TableColumn fx:id="ultimoUsuarioColumn" text="Último Usuario" prefWidth="120"/>
         </columns>
     </TableView>
+
+    <!-- Botones de acción -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="agregarBtn" text="➕ Agregar" styleClass="button-success"
+                onAction="#handleAgregar" prefHeight="35"/>
+        <Button fx:id="editarBtn" text="✏️ Editar" styleClass="button-primary"
+                onAction="#handleEditar" prefHeight="35"/>
+        <Button fx:id="eliminarBtn" text="🗑️ Eliminar" styleClass="button-danger"
+                onAction="#handleEliminar" prefHeight="35"/>
+        <Button fx:id="actualizarBtn" text="🔄 Actualizar" styleClass="button-secondary"
+                onAction="#handleActualizar" prefHeight="35"/>
+    </HBox>
 </VBox>

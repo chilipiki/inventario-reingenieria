@@ -41,36 +41,11 @@
                 <VBox alignment="CENTER" spacing="6">
                     <Label text="Sistema de Inventario"
                            style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #015294;"/>
-                    <Label text="Gestión de Calidad del Software II"
+                    <Label text="Administración de proyectos informáticos II"
                            style="-fx-font-size: 13px; -fx-text-fill: #5a7fa0;"/>
                 </VBox>
 
-                <!-- Cards estadísticas -->
-                <HBox spacing="20" alignment="CENTER">
-                    <VBox spacing="6" alignment="CENTER"
-                          style="-fx-background-color: white; -fx-padding: 18 25; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,82,158,0.12), 6, 0, 0, 2); -fx-min-width: 140;">
-                        <Label text="📦 Productos"
-                               style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
-                        <Label fx:id="productosCountLabel" text="0"
-                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #00529e;"/>
-                    </VBox>
-                    <VBox spacing="6" alignment="CENTER"
-                          style="-fx-background-color: white; -fx-padding: 18 25; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,82,158,0.12), 6, 0, 0, 2); -fx-min-width: 140;">
-                        <Label text="🏢 Almacenes"
-                               style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
-                        <Label fx:id="almacenesCountLabel" text="0"
-                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #00529e;"/>
-                    </VBox>
-                    <VBox spacing="6" alignment="CENTER"
-                          style="-fx-background-color: white; -fx-padding: 18 25; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,82,158,0.12), 6, 0, 0, 2); -fx-min-width: 140;">
-                        <Label text="📊 Stock Total"
-                               style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
-                        <Label fx:id="stockTotalLabel" text="0"
-                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #f8bb00;"/>
-                    </VBox>
-                </HBox>
-
-                <!-- NavBar horizontal (como en el boceto) -->
+                <!-- NavBar horizontal -->
                 <HBox fx:id="navBar" alignment="CENTER" spacing="10"
                       style="-fx-background-color: white; -fx-padding: 12 25; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgba(0,82,158,0.1), 4, 0, 0, 2);">
 
@@ -87,12 +62,6 @@
 
                     <Button fx:id="almacenesBtn" text="Almacenes"
                             onAction="#handleAlmacenes"
-                            styleClass="nav-tab-button"
-                            prefWidth="120" prefHeight="36"
-                            managed="false" visible="false"/>
-
-                    <Button fx:id="configBtn" text="⚙ Config"
-                            onAction="#handleConfig"
                             styleClass="nav-tab-button"
                             prefWidth="120" prefHeight="36"
                             managed="false" visible="false"/>
@@ -134,25 +103,6 @@
                 </top>
                 <center>
                     <VBox fx:id="almacenesContent"/>
-                </center>
-            </BorderPane>
-
-            <!-- ===================== VISTA: CONFIG ===================== -->
-            <BorderPane fx:id="configView"
-                        managed="false" visible="false">
-                <top>
-                    <HBox alignment="CENTER_LEFT" spacing="15"
-                          style="-fx-background-color: white; -fx-padding: 10 20; -fx-border-width: 0 0 1 0; -fx-border-color: #b3cde0;">
-                        <Button text="❮  Volver" onAction="#handleHome"
-                                style="-fx-background-color: transparent; -fx-text-fill: #00529e; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-width: 0;"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Label text="Configuración"
-                               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #015294;"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                    </HBox>
-                </top>
-                <center>
-                    <VBox fx:id="configContent"/>
                 </center>
             </BorderPane>
 

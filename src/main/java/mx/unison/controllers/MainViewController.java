@@ -52,19 +52,6 @@ public class MainViewController {
     /** Botón Almacenes del navbar horizontal. */
     @FXML private Button almacenesBtn;
 
-    /** Botón Configuración del navbar horizontal. */
-    @FXML private Button configBtn;
-
-    // ── Estadísticas (homeView) ─────────────────────────────────────────────
-
-    /** Label que muestra el total de productos. */
-    @FXML private Label productosCountLabel;
-
-    /** Label que muestra el total de almacenes. */
-    @FXML private Label almacenesCountLabel;
-
-    /** Label que muestra el stock total acumulado. */
-    @FXML private Label stockTotalLabel;
 
     // ── Vistas del StackPane ────────────────────────────────────────────────
 
@@ -77,9 +64,6 @@ public class MainViewController {
     /** Vista de almacenes (BorderPane con header + contenido). */
     @FXML private BorderPane almacenesView;
 
-    /** Vista de configuración (BorderPane con header + contenido). */
-    @FXML private BorderPane configView;
-
     // ── Contenedores de contenido dinámico ─────────────────────────────────
 
     /** Contenedor donde se carga el FXML de productos. */
@@ -88,8 +72,6 @@ public class MainViewController {
     /** Contenedor donde se carga el FXML de almacenes. */
     @FXML private VBox almacenesContent;
 
-    /** Contenedor donde se carga el FXML de configuración. */
-    @FXML private VBox configContent;
 
     /**
      * Constructor del controlador de la vista principal.
@@ -117,7 +99,6 @@ public class MainViewController {
         userRoleLabel.setText("Rol: " + userRole);
 
         configurarNavegacionPorRol();
-        cargarEstadisticas();
         mostrarHome();
     }
 
@@ -127,11 +108,13 @@ public class MainViewController {
      * Muestra u oculta los botones del navbar según el rol del usuario.
      */
     private void configurarNavegacionPorRol() {
+        // Todos ven productos y almacenes
+        setVisible(productosBtn, true);
+        setVisible(almacenesBtn, true);
         switch (userRole) {
             case "ADMIN" -> {
                 setVisible(productosBtn, true);
                 setVisible(almacenesBtn, true);
-                setVisible(configBtn, true);
             }
             case "PRODUCTOS" -> setVisible(productosBtn, true);
             case "ALMACENES" -> setVisible(almacenesBtn, true);
@@ -144,26 +127,6 @@ public class MainViewController {
         btn.setManaged(visible);
     }
 
-    // ── Estadísticas ────────────────────────────────────────────────────────
-
-    /**
-     * Consulta la base de datos y actualiza los contadores del dashboard.
-     */
-    private void cargarEstadisticas() {
-        try {
-            int productos = dbManager.getProductoDao().getAll().size();
-            int almacenes = dbManager.getAlmacenDao().getAll().size();
-            int stock = dbManager.getProductoDao().getAll()
-                    .stream().mapToInt(p -> p.getCantidad()).sum();
-
-            productosCountLabel.setText(String.valueOf(productos));
-            almacenesCountLabel.setText(String.valueOf(almacenes));
-            stockTotalLabel.setText(String.valueOf(stock));
-        } catch (SQLException e) {
-            System.err.println("Error al cargar estadísticas: " + e.getMessage());
-        }
-    }
-
     // ── Navegación ──────────────────────────────────────────────────────────
 
     /**
@@ -171,7 +134,6 @@ public class MainViewController {
      */
     @FXML
     private void handleHome() {
-        cargarEstadisticas();
         mostrarVista(homeView);
         activarBoton(inicioBtn);
     }
@@ -209,22 +171,6 @@ public class MainViewController {
     }
 
     /**
-     * Muestra la vista de configuración, cargándola dinámicamente si es la primera vez.
-     */
-    @FXML
-    private void handleConfig() {
-        mostrarVista(configView);
-        activarBoton(configBtn);
-        if (configContent.getChildren().isEmpty()) {
-            try {
-                cargarConfigView();
-            } catch (Exception e) {
-                UIUtils.showErrorAlert("Error", "Error al cargar configuración: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
      * Cierra la sesión del usuario actual y regresa a la pantalla de login.
      */
     @FXML
@@ -249,7 +195,6 @@ public class MainViewController {
         homeView.setVisible(false);    homeView.setManaged(false);
         productosView.setVisible(false); productosView.setManaged(false);
         almacenesView.setVisible(false); almacenesView.setManaged(false);
-        configView.setVisible(false);    configView.setManaged(false);
 
         vista.setVisible(true);
         vista.setManaged(true);
@@ -266,7 +211,7 @@ public class MainViewController {
      * @param boton Botón a marcar como activo
      */
     private void activarBoton(Button boton) {
-        for (Button b : new Button[]{inicioBtn, productosBtn, almacenesBtn, configBtn}) {
+        for (Button b : new Button[]{inicioBtn, productosBtn, almacenesBtn}) {
             b.getStyleClass().removeAll("nav-tab-active", "nav-tab-button");
             b.getStyleClass().add("nav-tab-button");
         }
@@ -283,7 +228,7 @@ public class MainViewController {
      */
     private void cargarProductosView() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/productos.fxml"));
-        loader.setController(new ProductosViewController(mainController, dbManager, userName));
+        loader.setController(new ProductosViewController(mainController, dbManager, userName, userRole));
         Node content = loader.load();
         VBox.setVgrow(content, Priority.ALWAYS);
         productosContent.getChildren().setAll(content);
@@ -297,25 +242,11 @@ public class MainViewController {
      */
     private void cargarAlmacenesView() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/almacenes.fxml"));
-        loader.setController(new AlmacenesViewController(mainController, dbManager, userName));
+        loader.setController(new AlmacenesViewController(mainController, dbManager, userName, userRole));
         Node content = loader.load();
         VBox.setVgrow(content, Priority.ALWAYS);
         almacenesContent.getChildren().setAll(content);
         VBox.setVgrow(almacenesContent, Priority.ALWAYS);
-    }
-
-    /**
-     * Carga el FXML de configuración e inyecta su contenido en el contenedor correspondiente.
-     *
-     * @throws Exception Si ocurre un error al cargar el FXML
-     */
-    private void cargarConfigView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/config.fxml"));
-        loader.setController(new ConfigViewController(mainController, dbManager, userName));
-        Node content = loader.load();
-        VBox.setVgrow(content, Priority.ALWAYS);
-        configContent.getChildren().setAll(content);
-        VBox.setVgrow(configContent, Priority.ALWAYS);
     }
 
     // ── Getters ─────────────────────────────────────────────────────────────
