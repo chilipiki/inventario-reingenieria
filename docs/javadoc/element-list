@@ -1,8 +1,0 @@
-mx.unison
-mx.unison.controllers
-mx.unison.database
-mx.unison.database.dao
-mx.unison.integration
-mx.unison.models
-mx.unison.service
-mx.unison.util
