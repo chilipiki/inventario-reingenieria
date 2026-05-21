@@ -1,6 +1,6 @@
 # Sistema de Inventario — Universidad de Sonora
 
-> Proyecto final de reingeniería de software — Gestión de Calidad del Software II  
+> Proyecto final de reingeniería de software — Administración de proyectos informáticos II 
 ---
 
 ## Descripción
@@ -72,7 +72,6 @@ src/main/resources/
     └── escudo_unison.png
 ```
 
----
 
 ## Instalación y ejecución
 
