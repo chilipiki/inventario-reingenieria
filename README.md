@@ -1,184 +1,223 @@
-# Sistema de Inventario
+# Sistema de Inventario — Universidad de Sonora
 
-## Sobre el desarrollo
-Este proyecto fue desarrollado con apoyo de herramientas de IA (GitHub Copilot y Claude) 
-para evaluar su capacidad de asistir en la construcción, refactorización y documentación 
-de proyectos de software reales.
+> Proyecto final de reingeniería de software — Administración de proyectos informáticos II 
+---
 
-## Tecnologías utilizadas
+## Descripción
 
-- **Java 21**
-- **JavaFX 21** — Interfaz gráfica
-- **ORMLite 6.1** — ORM para manejo de base de datos
-- **SQLite** — Base de datos embebida
-- **BCrypt** — Encriptación de contraseñas
-- **JUnit 5** — Pruebas unitarias
-- **Maven** — Gestión de dependencias
+Sistema de escritorio para la gestión de inventario desarrollado en Java con JavaFX. Permite administrar productos y almacenes mediante una interfaz moderna con autenticación por roles, filtros de búsqueda avanzados y registro de auditoría.
 
-## Arquitectura del proyecto
+Este proyecto es una reingeniería completa de una versión anterior desarrollada con Java Swing, corrigiendo errores críticos, mejorando la arquitectura y añadiendo pruebas automatizadas.
 
-El proyecto sigue el patrón MVC (Modelo-Vista-Controlador), donde los modelos 
-representan las entidades del sistema, las vistas se definen en archivos FXML 
-y los controladores gestionan la lógica de la interfaz. Adicionalmente, la 
-persistencia de datos se abstrae en una capa independiente mediante ORMLite 
-y el patrón DAO.
+
+
+## Tecnologías
+
+| Tecnología | Versión | Uso |
+|---|---|---|
+| Java | 21 | Lenguaje principal |
+| JavaFX | 21 | Interfaz gráfica |
+| ORMLite | 6.1 | ORM para base de datos |
+| SQLite | — | Base de datos embebida |
+| BCrypt | — | Encriptación de contraseñas |
+| JUnit 5 | — | Pruebas unitarias |
+| Maven | 3.6+ | Gestión de dependencias |
+
+
+
+## Arquitectura
+
+El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)** con una capa de acceso a datos mediante el patrón **DAO**.
+
 ```
 src/main/java/mx/unison/
-├── Main.java                  
-├── Launcher.java              
-├── models/                    
+├── Main.java
+├── Launcher.java
+├── models/
 │   ├── Producto.java
 │   ├── Almacen.java
 │   └── Usuario.java
-├── database/                  
+├── database/
 │   ├── DatabaseManager.java
 │   └── dao/
 │       ├── ProductoDao.java
 │       ├── AlmacenDao.java
 │       └── UsuarioDao.java
-├── controllers/               
+├── controllers/
 │   ├── MainController.java
 │   ├── LoginController.java
 │   ├── MainViewController.java
 │   ├── ProductosViewController.java
 │   ├── ProductoFormController.java
 │   ├── AlmacenesViewController.java
-│   ├── AlmacenFormController.java
-│   └── ConfigViewController.java
-├── service/                   
-│   └── AuthService.java                      
-├── util/
-│   ├── CryptoUtils.java
-│   └── UIUtils.java
+│   └── AlmacenFormController.java
+├── service/
+│   └── AuthService.java
+└── util/
+    ├── CryptoUtils.java
+    └── UIUtils.java
+
 src/main/resources/
-├── views/                     
+├── views/
 │   ├── login.fxml
 │   ├── main.fxml
 │   ├── productos.fxml
 │   ├── formProducto.fxml
 │   ├── almacenes.fxml
-│   ├── formAlmacen.fxml
-│   └── config.fxml
-├── styles/                    
+│   └── formAlmacen.fxml
+├── styles/
 │   ├── styles.css
 │   └── navigation.css
-└── img/                    
+└── img/
     └── escudo_unison.png
 ```
 
-## Mejoras respecto a la versión anterior
-
-### Interfaz de usuario
-- Migración completa de Java Swing a JavaFX
-- Diseño moderno con paleta de colores oceánica
-- Separación de vistas (FXML) y estilos (CSS)
-- Sistema de navegación con sidebar y topbar
-- Formularios modales para crear y editar registros
-
-### Manejo de datos
-- Implementación de ORMLite como ORM, eliminando consultas SQL directas
-- Patrón DAO para centralizar el acceso a los datos
-- Gestión centralizada de la base de datos con `DatabaseManager`
-- Relaciones entre entidades mediante anotaciones ORMLite
-
-### Seguridad
-- Reemplazo de MD5 por BCrypt para el almacenamiento de contraseñas
-- Prevención de inyección SQL mediante consultas parametrizadas de ORMLite
-- Sistema de roles con control de acceso por módulo (ADMIN, PRODUCTOS, ALMACENES)
-
-### Controladores
-- Separación completa de la lógica de negocio y la interfaz de usuario
-- Jerarquía de controladores con responsabilidades bien definidas
-- Servicio de autenticación dedicado (`AuthService`)
 
 ## Instalación y ejecución
 
-### Requisitos
+### Requisitos previos
+
 - Java 21 o superior
 - Maven 3.6 o superior
 
-### Pasos
+### Desde terminal
 
-1. Clona el repositorio:
 ```bash
-git clone https://github.com/pablo22a/sistema-inventario-javafx.git
-```
+# 1. Clonar el repositorio
+git clone PENDIENTE
+cd inventario-reingenieria
 
-2. Entra al directorio del proyecto:
-```bash
-cd sistema-inventario-javafx
-```
-
-3. Compila el proyecto:
-```bash
+# 2. Compilar
 mvn compile
-```
 
-4. Ejecuta la aplicación:
-```bash
+# 3. Ejecutar
 mvn javafx:run
+
+# 4. Ejecutar pruebas
+mvn test
 ```
 
-### Ejecución en IntelliJ IDEA
+### Desde IntelliJ IDEA
 
-1. Clona o descarga el repositorio y ábrelo en IntelliJ IDEA con 
-   `File` → `Open`
-2. IntelliJ detectará automáticamente el proyecto Maven y descargará 
-   las dependencias
-3. Configura el JDK 21 en `File` → `Project Structure` → `Project`
-4. En la ventana de Maven (panel derecho) ve a 
-   `Plugins` → `javafx` → `javafx:run`
-5. Haz doble clic en `javafx:run` para ejecutar la aplicación
+1. `File` → `Open` → selecciona la carpeta del proyecto
+2. IntelliJ detecta automáticamente el proyecto Maven
+3. Configura JDK 21 en `File` → `Project Structure` → `Project`
+4. En el panel Maven → `Plugins` → `javafx` → doble clic en `javafx:run`
 
-> **Nota:** No ejecutes la aplicación directamente desde `Main.java`. 
-> Usa siempre `javafx:run` o ejecuta la clase `Launcher.java` desde 
-> el botón de Run de IntelliJ.
+> ⚠️ No ejecutes `Main.java` directamente. Usa siempre `javafx:run` o ejecuta `Launcher.java`.
 
-## Credenciales de prueba
 
-| Usuario | Contraseña | Rol |
-|---------|-----------|-----|
-| ADMIN | admin23 | Administrador |
-| PRODUCTOS | productos19 | Gestión de productos |
-| ALMACENES | almacenes11 | Gestión de almacenes |
 
-## Capturas de pantalla
+## 👥 Usuarios del sistema
 
-### Login
-![Login](screenshots/login.png)
+| Usuario | Contraseña | Rol | Permisos |
+|---|---|---|---|
+| ADMIN | admin23 | Administrador | Todo: productos y almacenes |
+| PRODUCTOS | productos45 | Gestión de productos | CRUD en productos, lectura en almacenes |
+| ALMACENES | almacenes67 | Gestión de almacenes | CRUD en almacenes, lectura en productos |
 
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
+> Las contraseñas se almacenan encriptadas con **BCrypt** en la base de datos.
+
+
+
+## Funcionalidades
+
+### Autenticación
+- Login con usuario y contraseña encriptada (BCrypt)
+- Registro automático de fecha y hora de último inicio de sesión
+- Control de acceso por rol
 
 ### Gestión de Productos
-![Gestión de Productos](screenshots/productos.png)
+- Tabla con todas las columnas: ID, Nombre, Descripción, Cantidad, Precio, Almacén, Fecha Creación, Última Modificación, Último Usuario
+- Filtros de búsqueda por todas las columnas con soporte de rangos numéricos (cantidad, precio) y rangos de fechas
+- Agregar, editar y eliminar productos (roles ADMIN y PRODUCTOS)
+- Confirmación antes de eliminar
+- Registro de auditoría automático
 
 ### Gestión de Almacenes
-![Gestión de Almacenes](screenshots/almacenes.png)
+- Tabla con todas las columnas: ID, Nombre, Ubicación, Fecha Creación, Última Modificación, Último Usuario
+- Filtros de búsqueda por nombre, ubicación, usuario y rango de fechas
+- Agregar, editar y eliminar almacenes (roles ADMIN y ALMACENES)
+- Confirmación antes de eliminar
 
-### Configuración
-![Configuración](screenshots/config.png)
+### Navegación
+- Toda la navegación ocurre dentro de una sola ventana
+- Cualquier rol puede visualizar tanto productos como almacenes
+- Los botones de acción (Agregar/Editar/Eliminar) se muestran solo al rol correspondiente
+
+
 
 ## Pruebas
 
-El proyecto cuenta con 68 casos de prueba entre pruebas unitarias y de integración. 
-Para ejecutarlas:
+El proyecto cuenta con **13 clases de prueba** entre pruebas unitarias y de integración:
+
+| Tipo | Archivos |
+|---|---|
+| Modelos | `AlmacenTest`, `ProductoTest`, `UsuarioTest` |
+| DAOs | `AlmacenDaoTest`, `ProductoDaoTest`, `UsuarioDaoTest` |
+| Base de datos | `DatabaseManagerTest`, `TestDatabaseManager` |
+| Servicios | `AuthServiceTest` |
+| Utilidades | `CryptoUtilsTest`, `UIUtilsTest` |
+| Integración | `IntegracionAuthTest`, `IntegracionInventarioTest` |
 
 ```bash
 mvn test
 ```
 
-O directamente desde las clases de prueba en el IDE.
 
-## Documentación
 
-La documentación JavaDoc generada en HTML se encuentra en la carpeta `docs/javadoc/`.
-[Ver documentación JavaDoc](https://pablo22a.github.io/sistema-inventario-javafx/)
+## Base de datos
 
-## Estructura de la base de datos
+La base de datos SQLite (`InventarioBD.db`) se genera automáticamente al iniciar la aplicación.
 
-La base de datos SQLite se genera automáticamente al iniciar la aplicación con las siguientes tablas:
+### Tablas
 
-- **usuarios** - Almacena los usuarios del sistema con su rol y contraseña encriptada
-- **almacenes** - Almacena los almacenes con su nombre, ubicación y auditoría
-- **productos** - Almacena los productos con su precio, cantidad y relación al almacén
+**usuarios**
+| Campo | Tipo | Descripción |
+|---|---|---|
+| id | INTEGER PK | Identificador único |
+| nombre | TEXT | Nombre de usuario |
+| password | TEXT | Contraseña encriptada con BCrypt |
+| fecha_hora_ultimo_inicio | TEXT | Última sesión iniciada |
+| rol | TEXT | ADMIN, PRODUCTOS o ALMACENES |
+
+**productos**
+| Campo | Tipo | Descripción |
+|---|---|---|
+| id | INTEGER PK | Identificador único |
+| nombre | TEXT | Nombre del producto |
+| descripcion | TEXT | Descripción del producto |
+| cantidad | INTEGER | Stock disponible |
+| precio | REAL | Precio base |
+| almacen_id | INTEGER FK | Almacén al que pertenece |
+| fechaCreacion | TEXT | Fecha y hora de creación |
+| fechaModificacion | TEXT | Fecha y hora de última modificación |
+| ultimoUsuario | TEXT | Último usuario que lo modificó |
+
+**almacenes**
+| Campo | Tipo | Descripción |
+|---|---|---|
+| id | INTEGER PK | Identificador único |
+| nombre | TEXT | Nombre del almacén |
+| ubicacion | TEXT | Ubicación física |
+| fechaHoraCreacion | TEXT | Fecha y hora de creación |
+| fechaHoraUltimaMod | TEXT | Fecha y hora de última modificación |
+| ultimoUsuario | TEXT | Último usuario que lo modificó |
+
+
+
+## Documentación JavaDoc
+
+La documentación JavaDoc generada se encuentra en la carpeta `docs/javadoc/`.
+
+
+
+## Uso de Inteligencia Artificial
+
+Este proyecto fue desarrollado con apoyo de **Claude (Anthropic)** como herramienta de asistencia. La IA fue utilizada para:
+
+- Sugerencias de correcciones de bugs específicos
+- Generación de fragmentos de código bajo la dirección del equipo
+- Orientación sobre buenas prácticas de JavaFX y ORMLite
+
+Todas las decisiones de arquitectura, diseño y dirección del desarrollo fueron tomadas por el equipo. La IA actuó como herramienta de apoyo, no como sustituto del desarrollo.
