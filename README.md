@@ -1,19 +1,17 @@
-# 📦 Sistema de Inventario — Universidad de Sonora
+# Sistema de Inventario — Universidad de Sonora
 
 > Proyecto final de reingeniería de software — Gestión de Calidad del Software II  
-> Desarrollado por: **[Tu Nombre Aquí]**
-
 ---
 
-## 📋 Descripción
+## Descripción
 
 Sistema de escritorio para la gestión de inventario desarrollado en Java con JavaFX. Permite administrar productos y almacenes mediante una interfaz moderna con autenticación por roles, filtros de búsqueda avanzados y registro de auditoría.
 
 Este proyecto es una reingeniería completa de una versión anterior desarrollada con Java Swing, corrigiendo errores críticos, mejorando la arquitectura y añadiendo pruebas automatizadas.
 
----
 
-## 🛠️ Tecnologías
+
+## Tecnologías
 
 | Tecnología | Versión | Uso |
 |---|---|---|
@@ -25,9 +23,9 @@ Este proyecto es una reingeniería completa de una versión anterior desarrollad
 | JUnit 5 | — | Pruebas unitarias |
 | Maven | 3.6+ | Gestión de dependencias |
 
----
 
-## 🏗️ Arquitectura
+
+## Arquitectura
 
 El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)** con una capa de acceso a datos mediante el patrón **DAO**.
 
@@ -76,7 +74,7 @@ src/main/resources/
 
 ---
 
-## 🚀 Instalación y ejecución
+## Instalación y ejecución
 
 ### Requisitos previos
 
@@ -87,9 +85,8 @@ src/main/resources/
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/chilipiki/inventario-reingenieria.git
+git clone PENDIENTE
 cd inventario-reingenieria
-git checkout Chico
 
 # 2. Compilar
 mvn compile
@@ -110,21 +107,21 @@ mvn test
 
 > ⚠️ No ejecutes `Main.java` directamente. Usa siempre `javafx:run` o ejecuta `Launcher.java`.
 
----
+
 
 ## 👥 Usuarios del sistema
 
 | Usuario | Contraseña | Rol | Permisos |
 |---|---|---|---|
 | ADMIN | admin23 | Administrador | Todo: productos y almacenes |
-| PRODUCTOS | productos19 | Gestión de productos | CRUD en productos, lectura en almacenes |
-| ALMACENES | almacenes11 | Gestión de almacenes | CRUD en almacenes, lectura en productos |
+| PRODUCTOS | productos45 | Gestión de productos | CRUD en productos, lectura en almacenes |
+| ALMACENES | almacenes67 | Gestión de almacenes | CRUD en almacenes, lectura en productos |
 
 > Las contraseñas se almacenan encriptadas con **BCrypt** en la base de datos.
 
----
 
-## ✨ Funcionalidades
+
+## Funcionalidades
 
 ### Autenticación
 - Login con usuario y contraseña encriptada (BCrypt)
@@ -143,16 +140,15 @@ mvn test
 - Filtros de búsqueda por nombre, ubicación, usuario y rango de fechas
 - Agregar, editar y eliminar almacenes (roles ADMIN y ALMACENES)
 - Confirmación antes de eliminar
-- Registro de auditoría automático
 
 ### Navegación
 - Toda la navegación ocurre dentro de una sola ventana
 - Cualquier rol puede visualizar tanto productos como almacenes
 - Los botones de acción (Agregar/Editar/Eliminar) se muestran solo al rol correspondiente
 
----
 
-## 🧪 Pruebas
+
+## Pruebas
 
 El proyecto cuenta con **13 clases de prueba** entre pruebas unitarias y de integración:
 
@@ -169,9 +165,9 @@ El proyecto cuenta con **13 clases de prueba** entre pruebas unitarias y de inte
 mvn test
 ```
 
----
 
-## 🗄️ Base de datos
+
+## Base de datos
 
 La base de datos SQLite (`InventarioBD.db`) se genera automáticamente al iniciar la aplicación.
 
@@ -181,7 +177,7 @@ La base de datos SQLite (`InventarioBD.db`) se genera automáticamente al inicia
 | Campo | Tipo | Descripción |
 |---|---|---|
 | id | INTEGER PK | Identificador único |
-| nombre | TEXT | Nombre de usuario (único) |
+| nombre | TEXT | Nombre de usuario |
 | password | TEXT | Contraseña encriptada con BCrypt |
 | fecha_hora_ultimo_inicio | TEXT | Última sesión iniciada |
 | rol | TEXT | ADMIN, PRODUCTOS o ALMACENES |
@@ -209,51 +205,20 @@ La base de datos SQLite (`InventarioBD.db`) se genera automáticamente al inicia
 | fechaHoraUltimaMod | TEXT | Fecha y hora de última modificación |
 | ultimoUsuario | TEXT | Último usuario que lo modificó |
 
----
 
-## 🔄 Mejoras respecto a la versión original
 
-### Corrección de errores críticos
-- Funcionalidad de agregar productos (no existía)
-- Gestión de almacenes completamente reparada
-- Bug de `foreignAutoRefresh` que impedía mostrar el nombre del almacén en la tabla de productos
-
-### Arquitectura
-- Migración completa de Java Swing a JavaFX
-- Implementación del patrón DAO para acceso a datos
-- Separación de responsabilidades en paquetes (models, controllers, database, service, util)
-- Uso de ORMLite eliminando SQL directo
-
-### Seguridad
-- Sustitución de MD5 por BCrypt para contraseñas
-- Eliminación de la opción "Recordarme" del login
-- Corrección de roles inválidos en el formulario de usuarios
-
-### Interfaz
-- Diseño con colores institucionales de la Universidad de Sonora (#00529e, #f8bb00)
-- Navegación horizontal con logo y navbar centrado
-- Filtros de búsqueda avanzados por columna con rangos numéricos y de fechas
-- Columnas de auditoría visibles en tablas (fecha creación, última modificación, último usuario)
-- Restricción de botones CRUD según rol del usuario
-
-### Documentación
-- Javadoc en todos los archivos fuente
-- Pruebas unitarias y de integración añadidas desde cero
-
----
-
-## 📁 Documentación JavaDoc
+## Documentación JavaDoc
 
 La documentación JavaDoc generada se encuentra en la carpeta `docs/javadoc/`.
 
----
 
-## 🤖 Uso de Inteligencia Artificial
+
+## Uso de Inteligencia Artificial
 
 Este proyecto fue desarrollado con apoyo de **Claude (Anthropic)** como herramienta de asistencia. La IA fue utilizada para:
 
 - Sugerencias de correcciones de bugs específicos
-- Generación de fragmentos de código bajo la dirección del desarrollador
+- Generación de fragmentos de código bajo la dirección del equipo
 - Orientación sobre buenas prácticas de JavaFX y ORMLite
 
 Todas las decisiones de arquitectura, diseño y dirección del desarrollo fueron tomadas por el equipo. La IA actuó como herramienta de apoyo, no como sustituto del desarrollo.
