@@ -108,7 +108,7 @@ mvn test
 
 
 
-## 👥 Usuarios del sistema
+## Usuarios del sistema
 
 | Usuario | Contraseña | Rol | Permisos |
 |---|---|---|---|
